@@ -1,7 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode',
+    '@vueuse/nuxt',
   ],
   devtools: { enabled: true },
   ssr: false,
@@ -14,4 +16,8 @@ export default defineNuxtConfig({
       ],
     },
   },
+
+  colorMode: {
+    classSuffix: ''
+  }
 })
