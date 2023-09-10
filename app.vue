@@ -79,30 +79,32 @@ const showCompletedTodos = () => {
 
 <template>
   <div class="todo-app min-h-screen">
-    <header class="py-12  relative w-full  z-0">
+    <header class="py-12  relative w-full  z-0 shadow-md">
       <div class="max-w-xl px-6 mx-auto w-full flex flex-col gap-6">
         <img
           v-if="smAndLarger"
           :src="isDark ? headerImages.desktopDark : headerImages.desktopLight"
-          class="absolute inset-0 w-full h-full object-cover -z-10"
+          class="absolute inset-0 w-full h-[300px] object-cover -z-10"
         />
         <img
           v-else
           :src="isDark ? headerImages.mobileDark : headerImages.mobileLight"
-          class="absolute inset-0 w-full h-full object-cover -z-10"
+          class="absolute inset-0 w-full h-[200px] object-cover -z-10"
         />
         <nav class=" flex items-center justify-between z-10">
           <NuxtLink
             to="/"
-            class="uppercase tracking-wider text-lg text-white"
-          >Logo</NuxtLink>
+            class="uppercase tracking-widest text-3xl  text-white"
+          >
+            <IconLogo />
+          </NuxtLink>
           <button @click="toggleDarkMode">
             <IconSun v-if="isDark" />
             <IconMoon v-if="isLight" />
           </button>
         </nav>
         <!-- Input wrapper -->
-        <div class="bg-neutral-dark-200 flex gap-2 items-center rounded-md text-sm py-4 px-6">
+        <div class="bg-white dark:bg-neutral-dark-200 flex gap-2 items-center rounded-md text-sm py-4 px-6">
           <!-- checkbox wrapper -->
           <div>
             <IconCheck
@@ -127,7 +129,7 @@ const showCompletedTodos = () => {
     </header>
     <!-- Start Todo List -->
     <div class="py-12 px-6 mx-auto z-20 relative flex flex-col gap-6 max-w-xl">
-      <div class="bg-neutral-dark-200  -mt-20 rounded-md  ">
+      <div class="bg-white dark:bg-neutral-dark-200  -mt-20 rounded-md  shadow-md">
         <draggable
           v-model="updatedTodos"
           group="todos"
@@ -137,7 +139,9 @@ const showCompletedTodos = () => {
           @end="todos = updatedTodos"
         >
           <template #item="{ element: todo }: { element: Todo }">
-            <li class="px-6 py-4 border-b-neutral-700 border-solid border-b flex gap-4 justify-between items-center">
+            <li
+              class="px-6 py-4 border-b-neutral-light-200 dark:border-b-neutral-dark-700 border-solid border-b flex gap-4 justify-between items-center"
+            >
               <div>
                 <IconCheck v-if=" todo.completed " />
                 <IconUnchecked
@@ -149,7 +153,10 @@ const showCompletedTodos = () => {
                 :class=" todo.completed ? 'line-through text-neutral-dark-500' : '' "
                 class="flex-grow"
               >{{ todo.title }}</p>
-              <IconCross @click="removeTodo(todo.id)" />
+              <IconCross
+                class=" cursor-pointer"
+                @click="removeTodo(todo.id)"
+              />
             </li>
           </template>
 
@@ -164,7 +171,7 @@ const showCompletedTodos = () => {
       </div>
 
       <!-- End Todo List -->
-      <div class="bg-neutral-dark-200 rounded-md  px-6 py-3">
+      <div class="bg-white dark:bg-neutral-dark-200 rounded-md  px-6 py-3 shadow-md">
         <div class="flex gap-4 items-center justify-center">
           <button
             :class=" { 'text-primary-bright-blue': isFiltered === 'all' } "
@@ -210,7 +217,7 @@ const showCompletedTodos = () => {
 
 
 body {
-  @apply min-h-screen bg-white dark:bg-gray-800 dark:text-gray-200;
+  @apply min-h-screen bg-gray-50 dark:bg-neutral-dark-100 dark:text-gray-200;
   font-family: var(--font-family-sans-serif);
 }
 </style> 
