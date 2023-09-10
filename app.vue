@@ -85,20 +85,27 @@ const showCompletedTodos = () => {
           v-if="smAndLarger"
           :src="isDark ? headerImages.desktopDark : headerImages.desktopLight"
           class="absolute inset-0 w-full h-[300px] object-cover -z-10"
+          alt="Mountains and sky"
         />
         <img
           v-else
           :src="isDark ? headerImages.mobileDark : headerImages.mobileLight"
           class="absolute inset-0 w-full h-[200px] object-cover -z-10"
+          alt="Mountains and sky"
         />
         <nav class=" flex items-center justify-between z-10">
           <NuxtLink
             to="/"
             class="uppercase tracking-widest text-3xl  text-white"
           >
-            <IconLogo />
+            <h1 aria-label="todo application">
+              <IconLogo />
+            </h1>
           </NuxtLink>
-          <button @click="toggleDarkMode">
+          <button
+            :aria-label="`turn ${!isDark ? 'dark' : 'light'} mode`"
+            @click="toggleDarkMode"
+          >
             <IconSun v-if="isDark" />
             <IconMoon v-if="isLight" />
           </button>
@@ -108,6 +115,7 @@ const showCompletedTodos = () => {
           <!-- checkbox wrapper -->
           <div>
             <IconCheck
+              class="cursor-pointer"
               @click="addTodo(todo)"
               v-if="todo"
             />
@@ -118,7 +126,7 @@ const showCompletedTodos = () => {
             v-model="todo"
             type="text"
             placeholder="Create a new todo..."
-            class="w-full py-2 bg-transparent text-white placeholder-neutral-dark-500 placeholder:font-normal"
+            class="w-full py-2 bg-transparent dark:text-white placeholder-neutral-dark-500 placeholder:font-normal"
             @keydown.enter="addTodo(todo)"
             @keydown.tab="addTodo(todo)"
           />
@@ -128,7 +136,7 @@ const showCompletedTodos = () => {
 
     </header>
     <!-- Start Todo List -->
-    <div class="py-12 px-6 mx-auto z-20 relative flex flex-col gap-6 max-w-xl">
+    <main class="py-12 px-6 mx-auto z-20 relative flex flex-col gap-6 max-w-xl">
       <div class="bg-white dark:bg-neutral-dark-200  -mt-20 rounded-md  shadow-md">
         <draggable
           v-model="updatedTodos"
@@ -137,6 +145,7 @@ const showCompletedTodos = () => {
           :animation="150"
           class="flex flex-col"
           @end="todos = updatedTodos"
+          tag="ul"
         >
           <template #item="{ element: todo }: { element: Todo }">
             <li
@@ -150,6 +159,7 @@ const showCompletedTodos = () => {
                 />
               </div>
               <p
+                role="listitem"
                 :class=" todo.completed ? 'line-through text-neutral-dark-500' : '' "
                 class="flex-grow"
               >{{ todo.title }}</p>
@@ -164,7 +174,7 @@ const showCompletedTodos = () => {
 
 
         <div class="flex px-6 py-3 justify-between gap-8 items-center text-neutral-dark-500">
-          <p>{{ uncompletedTodosCount }} items left</p>
+          <p role="contentinfo">{{ uncompletedTodosCount }} items left</p>
           <button @click=" deleteCompletedTodos ">Clear Completed</button>
         </div>
 
@@ -177,6 +187,7 @@ const showCompletedTodos = () => {
             :class=" { 'text-primary-bright-blue': isFiltered === 'all' } "
             @click=" showAllTodos "
             class="text-neutral-dark-500"
+            aria-label="Show all todos"
           >All</button>
           <button
             :class="
@@ -185,8 +196,10 @@ const showCompletedTodos = () => {
             @click=" showActiveTodos "
             class="
           text-neutral-dark-500"
+            aria-label="Show active todos"
           >Active</button>
           <button
+            aria-label="Show completed todos"
             :class="
               { 'text-primary-bright-blue': isFiltered === 'completed' }
             "
@@ -197,7 +210,7 @@ const showCompletedTodos = () => {
         </div>
       </div>
 
-    </div>
+    </main>
     <!-- Start tabs -->
 
 
