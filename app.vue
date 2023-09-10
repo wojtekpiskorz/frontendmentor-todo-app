@@ -158,11 +158,10 @@ const showCompletedTodos = () => {
                   @click="completeTodo(todo.id)"
                 />
               </div>
-              <p
-                role="listitem"
+              <span
                 :class=" todo.completed ? 'line-through text-neutral-dark-500' : '' "
                 class="flex-grow"
-              >{{ todo.title }}</p>
+              >{{ todo.title }}</span>
               <IconCross
                 class=" cursor-pointer"
                 @click="removeTodo(todo.id)"
@@ -174,7 +173,7 @@ const showCompletedTodos = () => {
 
 
         <div class="flex px-6 py-3 justify-between gap-8 items-center text-neutral-dark-500">
-          <p role="contentinfo">{{ uncompletedTodosCount }} items left</p>
+          <p aria-label="Uncompleted todos count">{{ uncompletedTodosCount }} items left</p>
           <button @click=" deleteCompletedTodos ">Clear Completed</button>
         </div>
 
